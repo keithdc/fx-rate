@@ -1,0 +1,52 @@
+<mat-card class="example-card">
+  <mat-card-title-group>
+    <mat-card-title>Forex Calculator</mat-card-title>
+  </mat-card-title-group>
+  <mat-card-content>
+    <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="15px">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Buy</mat-label>
+          <input type="text"
+                 placeholder="Buy"
+                 matInput
+                 formControlName="buyCurr"
+                 [matAutocomplete]="buyCur">
+          <mat-autocomplete #buyCur="matAutocomplete">
+            <mat-option *ngFor="let code of buyCountryCode" [value]="code">
+              {{code}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="1234" type="number" formControlName="buyAmt">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Sell</mat-label>
+          <input type="text"
+                 placeholder="Sell"
+                 matInput
+                 formControlName="sellCurr"
+                 [matAutocomplete]="sellCurr">
+          <mat-autocomplete #sellCurr="matAutocomplete">
+            <mat-option *ngFor="let code of sellCountryCode" [value]="code">
+              {{code}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="1234" type="number" formControlName="sellAmt">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="flex-end">
+    <span *ngIf="formGroup?.value?.buyCurr && formGroup?.value?.sellCurr">1&nbsp;{{formGroup?.value?.buyCurr}}&nbsp;=&nbsp;{{conversionValue?.perAmt | number : '1.2-3'}}&nbsp;{{conversionValue?.perCurr}}</span>
+  </mat-card-actions>
+</mat-card>
